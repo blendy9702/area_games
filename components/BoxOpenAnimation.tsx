@@ -4,6 +4,11 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { GRADE_INFO, type Grade } from "@/lib/types";
 import { useRouletteSize } from "@/lib/hooks/useRouletteSize";
+import {
+  startDeceleratingRouletteSound,
+  startFastRouletteSound,
+  stopRouletteSound,
+} from "@/lib/gradeSounds";
 
 interface BoxOpenAnimationProps {
   isOpening: boolean;
@@ -228,6 +233,21 @@ export default function BoxOpenAnimation({
   result,
 }: BoxOpenAnimationProps) {
   const { itemWidth, itemHeight } = useRouletteSize();
+
+  useEffect(() => {
+    if (!isOpening) {
+      stopRouletteSound();
+      return;
+    }
+
+    if (result) {
+      startDeceleratingRouletteSound(4800);
+    } else {
+      startFastRouletteSound();
+    }
+
+    return () => stopRouletteSound();
+  }, [isOpening, result]);
 
   return (
     <div className="flex flex-col items-center gap-4 sm:gap-6 w-full">

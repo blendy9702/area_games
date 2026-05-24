@@ -5,7 +5,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "에리아 게임즈 - 랜덤박스",
-  description: "친구들과 함께하는 랜덤박스 게임",
+  description: "즐거운 랜덤박스 게임",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
@@ -26,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='ko' className='h-full'>
+    <html lang="ko" className="h-full">
       <body className="min-h-full flex flex-col bg-[#0a0a0f] text-gray-200">
         {children}
         <Toaster />

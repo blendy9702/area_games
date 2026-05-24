@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import NavBar from "@/components/NavBar";
+import GradeStatsSection from "@/components/GradeStatsSection";
 import { GRADE_INFO, type Grade, type GameProfile, type BoxHistory } from "@/lib/types";
 import { formatTokens } from "@/lib/tokens";
 
@@ -96,31 +97,7 @@ export default async function HistoryPage() {
 
           {/* 등급 분포 */}
           {history && history.length > 0 && (
-            <div className="pixel-card mb-6">
-              <div className="text-sm text-gray-500 mb-3">── 등급 통계 ──</div>
-              <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
-                {(["secret", "mythic", "legendary", "epic", "rare", "common"] as Grade[]).map(
-                  (grade) => {
-                    const info = GRADE_INFO[grade];
-                    const count = stats[grade] || 0;
-                    const pct =
-                      history.length > 0
-                        ? ((count / history.length) * 100).toFixed(1)
-                        : "0";
-                    return (
-                      <div key={grade} className="text-center">
-                        <div className="text-lg mb-1">{GRADE_ICONS[grade]}</div>
-                        <div className={`text-xs sm:text-sm ${info.textColor} mb-1`}>
-                          {info.label}
-                        </div>
-                        <div className="text-sm text-white">{count}</div>
-                        <div className="text-xs text-gray-500">{pct}%</div>
-                      </div>
-                    );
-                  }
-                )}
-              </div>
-            </div>
+            <GradeStatsSection stats={stats} totalCount={history.length} />
           )}
 
           {/* 히스토리 목록 */}

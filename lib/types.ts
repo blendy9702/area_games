@@ -26,7 +26,7 @@ export const GRADE_INFO: Record<Grade, GradeInfo> = {
     textColor: "text-gray-300",
     points: 1,
     probability: 53,
-    description: "흔한 아이템",
+    description: "흔한 카드",
   },
   rare: {
     label: "희귀",
@@ -36,7 +36,7 @@ export const GRADE_INFO: Record<Grade, GradeInfo> = {
     textColor: "text-blue-300",
     points: 5,
     probability: 30,
-    description: "희귀한 아이템",
+    description: "희귀한 카드",
   },
   epic: {
     label: "에픽",
@@ -46,7 +46,7 @@ export const GRADE_INFO: Record<Grade, GradeInfo> = {
     textColor: "text-purple-300",
     points: 10,
     probability: 10,
-    description: "에픽 아이템",
+    description: "에픽 카드",
   },
   legendary: {
     label: "전설",
@@ -56,7 +56,7 @@ export const GRADE_INFO: Record<Grade, GradeInfo> = {
     textColor: "text-yellow-200",
     points: 15,
     probability: 5,
-    description: "전설의 아이템",
+    description: "전설의 카드",
   },
   mythic: {
     label: "신화",
@@ -66,7 +66,7 @@ export const GRADE_INFO: Record<Grade, GradeInfo> = {
     textColor: "text-red-300",
     points: 30,
     probability: 1.5,
-    description: "신화급 아이템",
+    description: "신화급 카드",
   },
   secret: {
     label: "시크릿",
