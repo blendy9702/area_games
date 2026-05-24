@@ -68,19 +68,19 @@ export default function SignupPage() {
       <div className="relative z-10 w-full max-w-md px-4">
         <div className="text-center mb-6 sm:mb-8">
           <div className="text-lg sm:text-2xl text-indigo-400 pixel-glow mb-2">
-            🎲 AREA GAMES
+            🎲 에리아 게임즈
           </div>
-          <div className="text-xs text-gray-500 tracking-widest">NEW PLAYER</div>
+          <div className="text-xs text-gray-500 tracking-widest">새 플레이어</div>
         </div>
 
         <div className="pixel-card">
           <div className="text-sm text-green-300 mb-6 text-center border-b border-green-900 pb-4">
-            ▶ SIGNUP
+            ▶ 회원가입
           </div>
 
           <form onSubmit={handleSignup} className="space-y-4">
             <div>
-              <label className="block text-xs text-gray-400 mb-2">ID</label>
+              <label className="block text-xs text-gray-400 mb-2">아이디</label>
               <input
                 type="text"
                 value={username}
@@ -101,7 +101,7 @@ export default function SignupPage() {
             </div>
 
             <div>
-              <label className="block text-xs text-gray-400 mb-2">PASSWORD</label>
+              <label className="block text-xs text-gray-400 mb-2">비밀번호</label>
               <input
                 type="password"
                 value={password}
@@ -125,7 +125,7 @@ export default function SignupPage() {
               disabled={loading}
               className="pixel-btn pixel-btn-success w-full mt-2"
             >
-              {loading ? "LOADING..." : "▶ CREATE ACCOUNT"}
+              {loading ? "잠시만..." : "▶ 가입하기"}
             </button>
           </form>
 
@@ -135,7 +135,7 @@ export default function SignupPage() {
               href="/login"
               className="text-xs text-indigo-400 hover:text-indigo-300 underline"
             >
-              LOGIN
+              로그인
             </Link>
           </div>
         </div>

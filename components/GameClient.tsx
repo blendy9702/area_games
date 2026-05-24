@@ -96,15 +96,15 @@ export default function GameClient({
     <div className="flex flex-col items-center gap-4 sm:gap-8 w-full">
       <div className="text-center w-full">
         <h1 className="text-sm sm:text-lg text-indigo-300 pixel-glow mb-2">
-          🎲 RANDOM BOX
+          🎲 랜덤박스
         </h1>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-4 text-[10px] sm:text-xs text-gray-400">
           <span>
-            PLAYER:{" "}
+            플레이어:{" "}
             <span className="text-indigo-300">{profile.username}</span>
           </span>
           <span>
-            BOXES:{" "}
+            오픈:{" "}
             <span className="text-green-300">{profile.total_boxes_opened}</span>
           </span>
         </div>
@@ -113,7 +113,7 @@ export default function GameClient({
       <div className="flex items-center gap-3 pixel-card px-5 sm:px-8 py-3 sm:py-4 w-full max-w-xs sm:max-w-none sm:w-auto justify-center">
         <span className="text-2xl token-shine">🎫</span>
         <div>
-          <div className="text-xs text-gray-500 mb-1">TOKENS</div>
+          <div className="text-xs text-gray-500 mb-1">토큰</div>
           <div className="text-xl sm:text-2xl text-yellow-300">
             {formatTokens(profile.tokens, isAdmin)}
           </div>
@@ -162,12 +162,12 @@ export default function GameClient({
                 }
               >
                 {isOpening
-                  ? "OPENING..."
+                  ? "오픈 중..."
                   : !hasTokens(profile.tokens, isAdmin)
-                  ? "NO TOKENS"
+                  ? "토큰 없음"
                   : isAdmin
-                  ? "🎲 OPEN BOX"
-                  : "🎲 OPEN BOX (-1🎫)"}
+                  ? "🎲 박스 열기"
+                  : "🎲 박스 열기 (-1🎫)"}
               </motion.button>
             </motion.div>
           ) : (
@@ -198,7 +198,7 @@ export default function GameClient({
                 onClick={resetGame}
                 className="pixel-btn pixel-btn-primary w-full sm:w-auto text-xs sm:text-sm px-6 py-3 relative z-50"
               >
-                ▶ OPEN AGAIN
+                ▶ 다시 열기
               </button>
             </motion.div>
           )}
@@ -208,7 +208,7 @@ export default function GameClient({
       {isAdmin && !isOpening && !showResult && (
         <div className="w-full max-w-2xl pixel-card border-2 border-dashed border-yellow-700/80">
           <div className="text-[9px] text-yellow-500 mb-1 text-center">
-            ── ADMIN TEST LAB ──
+            ── 어드민 테스트 ──
           </div>
           <div className="text-[8px] text-gray-600 text-center mb-3">
             등급별 이펙트 실험 (토큰 소모 없음)
@@ -232,7 +232,7 @@ export default function GameClient({
 
       <div className="w-full max-w-2xl">
         <div className="text-xs text-gray-500 text-center mb-3">
-          ── GRADE TABLE ──
+          ── 등급표 ──
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
           {(Object.entries(GRADE_INFO) as [Grade, (typeof GRADE_INFO)[Grade]][]).map(
@@ -255,7 +255,7 @@ export default function GameClient({
                 <div className="text-[8px] text-gray-400">
                   {info.points}pt · {info.probability}%
                   {getGradeTier(grade) >= 1 && (
-                    <span className="text-purple-400"> · FX</span>
+                    <span className="text-purple-400"> · 연출</span>
                   )}
                 </div>
               </div>
@@ -341,7 +341,7 @@ function ResultCard({ grade, points }: { grade: Grade; points: number }) {
           animate={{ opacity: 1, y: 0, scale: tier >= 2 ? [0.8, 1.2, 1] : 1 }}
           transition={{ delay: 0.4, duration: 0.5 }}
         >
-          +{points} POINTS
+          +{points} 포인트
         </motion.div>
 
         <div className="text-[9px] text-gray-500">{info.description}</div>

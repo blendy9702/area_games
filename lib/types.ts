@@ -19,7 +19,7 @@ export interface GradeInfo {
 
 export const GRADE_INFO: Record<Grade, GradeInfo> = {
   common: {
-    label: "COMMON",
+    label: "일반",
     color: "#9ca3af",
     bgColor: "bg-gray-600",
     borderColor: "border-gray-400",
@@ -29,7 +29,7 @@ export const GRADE_INFO: Record<Grade, GradeInfo> = {
     description: "흔한 아이템",
   },
   rare: {
-    label: "RARE",
+    label: "희귀",
     color: "#3b82f6",
     bgColor: "bg-blue-600",
     borderColor: "border-blue-400",
@@ -39,7 +39,7 @@ export const GRADE_INFO: Record<Grade, GradeInfo> = {
     description: "희귀한 아이템",
   },
   epic: {
-    label: "EPIC",
+    label: "에픽",
     color: "#a855f7",
     bgColor: "bg-purple-600",
     borderColor: "border-purple-400",
@@ -49,7 +49,7 @@ export const GRADE_INFO: Record<Grade, GradeInfo> = {
     description: "에픽 아이템",
   },
   legendary: {
-    label: "LEGENDARY",
+    label: "전설",
     color: "#f59e0b",
     bgColor: "bg-yellow-600",
     borderColor: "border-yellow-400",
@@ -59,7 +59,7 @@ export const GRADE_INFO: Record<Grade, GradeInfo> = {
     description: "전설의 아이템",
   },
   mythic: {
-    label: "MYTHIC",
+    label: "신화",
     color: "#ef4444",
     bgColor: "bg-red-600",
     borderColor: "border-red-400",
@@ -69,7 +69,7 @@ export const GRADE_INFO: Record<Grade, GradeInfo> = {
     description: "신화급 아이템",
   },
   secret: {
-    label: "SECRET",
+    label: "시크릿",
     color: "#1a1a2e",
     bgColor: "bg-gray-950",
     borderColor: "border-gray-300",

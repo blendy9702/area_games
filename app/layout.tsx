@@ -3,12 +3,12 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "AREA GAMES - 랜덤박스",
-  description: "랜덤박스 게임",
+  title: "에리아 게임즈 - 랜덤박스",
+  description: "친구들과 함께하는 랜덤박스 게임",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "AREA GAMES",
+    title: "에리아 게임즈",
   },
 };
 
@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='ko' className='h-full'>
-      <body className='min-h-full flex flex-col bg-[#0a0a0f] text-gray-200 antialiased'>
+      <body className="min-h-full flex flex-col bg-[#0a0a0f] text-gray-200">
         {children}
         <Analytics />
       </body>

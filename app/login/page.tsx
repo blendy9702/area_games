@@ -37,18 +37,18 @@ export default function LoginPage() {
 
       <div className="relative z-10 w-full max-w-md px-4">
         <div className="text-center mb-6 sm:mb-8">
-          <div className="text-lg sm:text-2xl text-indigo-400 pixel-glow mb-2">🎲 AREA GAMES</div>
-          <div className="text-xs text-gray-500 tracking-widest">RANDOM BOX</div>
+          <div className="text-lg sm:text-2xl text-indigo-400 pixel-glow mb-2">🎲 에리아 게임즈</div>
+          <div className="text-xs text-gray-500 tracking-widest">랜덤박스</div>
         </div>
 
         <div className="pixel-card">
           <div className="text-sm text-indigo-300 mb-6 text-center border-b border-indigo-900 pb-4">
-            ▶ LOGIN
+            ▶ 로그인
           </div>
 
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
-              <label className="block text-xs text-gray-400 mb-2">ID</label>
+              <label className="block text-xs text-gray-400 mb-2">아이디</label>
               <input
                 type="text"
                 value={username}
@@ -65,7 +65,7 @@ export default function LoginPage() {
             </div>
 
             <div>
-              <label className="block text-xs text-gray-400 mb-2">PASSWORD</label>
+              <label className="block text-xs text-gray-400 mb-2">비밀번호</label>
               <input
                 type="password"
                 value={password}
@@ -88,14 +88,14 @@ export default function LoginPage() {
               disabled={loading}
               className="pixel-btn pixel-btn-primary w-full mt-2"
             >
-              {loading ? "LOADING..." : "▶ LOGIN"}
+              {loading ? "잠시만..." : "▶ 로그인"}
             </button>
           </form>
 
           <div className="text-center mt-6 pt-4 border-t border-gray-800">
             <span className="text-xs text-gray-600">계정이 없으신가요? </span>
             <Link href="/signup" className="text-xs text-indigo-400 hover:text-indigo-300 underline">
-              SIGNUP
+              회원가입
             </Link>
           </div>
         </div>

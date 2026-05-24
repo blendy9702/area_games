@@ -57,23 +57,23 @@ export default async function HistoryPage() {
       <main className="flex-1 max-w-5xl mx-auto w-full safe-area-x px-3 sm:px-4 py-4 sm:py-8">
         <div className="mb-6">
           <h1 className="text-sm text-indigo-300 pixel-glow mb-4">
-            📜 BOX HISTORY
+            📜 오픈 기록
           </h1>
 
           {/* 통계 카드 */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
             <div className="pixel-card text-center">
-              <div className="text-xs text-gray-500 mb-1">TOTAL OPENED</div>
+              <div className="text-xs text-gray-500 mb-1">총 오픈</div>
               <div className="text-xl text-green-300">
                 {history?.length || 0}
               </div>
             </div>
             <div className="pixel-card text-center">
-              <div className="text-xs text-gray-500 mb-1">TOTAL POINTS</div>
+              <div className="text-xs text-gray-500 mb-1">총 포인트</div>
               <div className="text-xl text-yellow-300">{totalPoints}</div>
             </div>
             <div className="pixel-card text-center">
-              <div className="text-xs text-gray-500 mb-1">BEST GRADE</div>
+              <div className="text-xs text-gray-500 mb-1">최고 등급</div>
               <div className="text-xl">
                 {history && history.length > 0
                   ? GRADE_ICONS[
@@ -85,7 +85,7 @@ export default async function HistoryPage() {
               </div>
             </div>
             <div className="pixel-card text-center">
-              <div className="text-xs text-gray-500 mb-1">TOKENS LEFT</div>
+              <div className="text-xs text-gray-500 mb-1">남은 토큰</div>
               <div className="text-xl text-indigo-300">
                 {formatTokens((profile as GameProfile)?.tokens || 0, isAdmin)}🎫
               </div>
@@ -95,7 +95,7 @@ export default async function HistoryPage() {
           {/* 등급 분포 */}
           {history && history.length > 0 && (
             <div className="pixel-card mb-6">
-              <div className="text-xs text-gray-500 mb-3">── GRADE STATS ──</div>
+              <div className="text-xs text-gray-500 mb-3">── 등급 통계 ──</div>
               <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
                 {(["secret", "mythic", "legendary", "epic", "rare", "common"] as Grade[]).map(
                   (grade) => {
@@ -123,7 +123,7 @@ export default async function HistoryPage() {
 
           {/* 히스토리 목록 */}
           <div className="pixel-card">
-            <div className="text-xs text-gray-500 mb-3">── RECENT 50 ──</div>
+            <div className="text-xs text-gray-500 mb-3">── 최근 50개 ──</div>
             {!history || history.length === 0 ? (
               <div className="text-center text-gray-600 text-xs py-8">
                 아직 박스를 열지 않았습니다.

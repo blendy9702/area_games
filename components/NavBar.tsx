@@ -23,10 +23,10 @@ export default function NavBar({ profile, isAdmin }: NavBarProps) {
   }
 
   const navItems = [
-    { href: "/game", label: "🎲", labelFull: "🎲 GAME" },
-    { href: "/history", label: "📜", labelFull: "📜 HISTORY" },
+    { href: "/game", label: "🎲", labelFull: "🎲 게임" },
+    { href: "/history", label: "📜", labelFull: "📜 기록" },
     ...(isAdmin
-      ? [{ href: "/admin", label: "👑", labelFull: "👑 ADMIN" }]
+      ? [{ href: "/admin", label: "👑", labelFull: "👑 관리" }]
       : []),
   ];
 
@@ -73,8 +73,8 @@ export default function NavBar({ profile, isAdmin }: NavBarProps) {
             onClick={handleLogout}
             className="pixel-btn pixel-btn-danger text-[8px] px-2 py-1 min-h-[36px]"
           >
-            <span className="sm:hidden">OUT</span>
-            <span className="hidden sm:inline">LOGOUT</span>
+            <span className="sm:hidden">나가기</span>
+            <span className="hidden sm:inline">로그아웃</span>
           </button>
         </div>
       </div>
