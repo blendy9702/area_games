@@ -98,11 +98,11 @@ export default function AdminClient({
     <div className="space-y-6">
       {/* 헤더 */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-        <h1 className="text-xs sm:text-sm text-yellow-300 pixel-glow">👑 관리 패널</h1>
+        <h1 className="text-sm sm:text-base text-yellow-300 pixel-glow">👑 관리 패널</h1>
         <button
           onClick={refreshUsers}
           disabled={refreshing}
-          className="pixel-btn pixel-btn-primary text-[9px] px-3 py-2"
+          className="pixel-btn pixel-btn-primary text-sm px-3 py-2"
         >
           {refreshing ? "..." : "↻ 새로고침"}
         </button>
@@ -111,15 +111,15 @@ export default function AdminClient({
       {/* 전체 통계 */}
       <div className="grid grid-cols-3 gap-3">
         <div className="pixel-card text-center">
-          <div className="text-[9px] text-gray-500 mb-1">플레이어</div>
+          <div className="text-sm text-gray-500 mb-1">플레이어</div>
           <div className="text-xl text-indigo-300">{users.length}</div>
         </div>
         <div className="pixel-card text-center">
-          <div className="text-[9px] text-gray-500 mb-1">토큰 총량</div>
+          <div className="text-sm text-gray-500 mb-1">토큰 총량</div>
           <div className="text-xl text-yellow-300">{totalTokensInCirculation}🎫</div>
         </div>
         <div className="pixel-card text-center">
-          <div className="text-[9px] text-gray-500 mb-1">총 오픈</div>
+          <div className="text-sm text-gray-500 mb-1">총 오픈</div>
           <div className="text-xl text-green-300">{totalBoxesOpened}</div>
         </div>
       </div>
@@ -128,7 +128,7 @@ export default function AdminClient({
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-red-400 text-xs border border-red-800 bg-red-950 p-3"
+          className="text-red-400 text-sm border border-red-800 bg-red-950 p-3"
         >
           ⚠ {errorMsg}
         </motion.div>
@@ -136,10 +136,10 @@ export default function AdminClient({
 
       {/* 유저 목록 */}
       <div className="pixel-card">
-        <div className="text-xs text-gray-500 mb-4">── 플레이어 목록 ──</div>
+        <div className="text-sm text-gray-500 mb-4">── 플레이어 목록 ──</div>
 
         {users.length === 0 ? (
-          <div className="text-center text-gray-600 text-xs py-8">
+          <div className="text-center text-gray-600 text-sm py-8">
             등록된 플레이어가 없습니다.
           </div>
         ) : (
@@ -164,16 +164,16 @@ export default function AdminClient({
                   {/* 유저 정보 */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="text-xs text-indigo-300 truncate">
+                      <span className="text-sm text-indigo-300 truncate">
                         {u.username}
                       </span>
                       {u.id === currentUserId && (
-                        <span className="text-[8px] text-yellow-400 border border-yellow-700 px-1">
+                        <span className="text-xs text-yellow-400 border border-yellow-700 px-1">
                           나
                         </span>
                       )}
                     </div>
-                    <div className="flex gap-3 text-[9px] text-gray-500">
+                    <div className="flex gap-3 text-sm text-gray-500">
                       <span>🎫 {u.tokens}개</span>
                       <span>📦 {u.total_boxes_opened}회</span>
                     </div>
@@ -197,7 +197,7 @@ export default function AdminClient({
                     <button
                       onClick={() => giveTokens(u.id)}
                       disabled={loadingUser === u.id || deletingUser === u.id}
-                      className={`pixel-btn text-[9px] px-3 py-2 ${
+                      className={`pixel-btn text-sm px-3 py-2 ${
                         successUser === u.id
                           ? "pixel-btn-success"
                           : "pixel-btn-primary"
@@ -215,7 +215,7 @@ export default function AdminClient({
                       <button
                         onClick={() => deleteUser(u.id, u.username)}
                         disabled={deletingUser === u.id || loadingUser === u.id}
-                        className="pixel-btn pixel-btn-danger text-[9px] px-3 py-2"
+                        className="pixel-btn pixel-btn-danger text-sm px-3 py-2"
                       >
                         {deletingUser === u.id ? "..." : "🗑 삭제"}
                       </button>
@@ -229,7 +229,7 @@ export default function AdminClient({
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
                       exit={{ opacity: 0, height: 0 }}
-                      className="mt-2 text-[9px] text-green-400 text-center"
+                      className="mt-2 text-sm text-green-400 text-center"
                     >
                       ✓ {tokenAmounts[u.id] ?? 5}개 토큰 지급 완료!
                     </motion.div>
@@ -243,10 +243,10 @@ export default function AdminClient({
 
       {/* 어드민 설정 안내 */}
       <div className="pixel-card border-yellow-800">
-        <div className="text-[9px] text-yellow-600 mb-2">── 어드민 설정 ──</div>
-        <div className="text-[8px] text-gray-600 space-y-1">
+        <div className="text-sm text-yellow-600 mb-2">── 어드민 설정 ──</div>
+        <div className="text-xs text-gray-600 space-y-1">
           <div>다른 유저를 어드민으로 설정하려면:</div>
-          <div className="bg-gray-950 border border-gray-800 p-2 text-green-400 text-[8px] font-mono">
+          <div className="bg-gray-950 border border-gray-800 p-2 text-green-400 text-xs font-mono">
             UPDATE auth.users SET raw_app_meta_data = raw_app_meta_data ||
             {`'{"is_admin": true}'`} WHERE email = &apos;email@example.com&apos;;
           </div>

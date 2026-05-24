@@ -24,6 +24,16 @@
   box-sizing: border-box;
 }
 
+html {
+  font-size: 17px;
+}
+
+@media (min-width: 640px) {
+  html {
+    font-size: 18px;
+  }
+}
+
 html,
 body {
   height: 100%;
@@ -31,6 +41,8 @@ body {
   background-color: var(--pixel-bg);
   color: #e2e8f0;
   font-family: var(--font-pixel);
+  line-height: 1.65;
+  letter-spacing: 0.04em;
   image-rendering: pixelated;
   -webkit-font-smoothing: none;
   -moz-osx-font-smoothing: unset;
@@ -81,15 +93,16 @@ body::before {
 /* 픽셀 버튼 스타일 */
 .pixel-btn {
   font-family: var(--font-pixel);
-  font-size: 12px;
-  padding: 12px 16px;
-  min-height: 44px;
+  font-size: 15px;
+  line-height: 1.55;
+  padding: 12px 18px;
+  min-height: 48px;
   border: 3px solid;
   cursor: pointer;
   image-rendering: pixelated;
   transition: transform 0.1s;
   position: relative;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.05em;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 }
@@ -141,15 +154,15 @@ body::before {
 .pixel-input {
   font-family: var(--font-pixel);
   font-size: 16px;
-  line-height: 1.5;
+  line-height: 1.65;
   background-color: #0a0a0f;
   border: 3px solid #2d2d4e;
   color: #e2e8f0;
-  padding: 12px 14px;
-  min-height: 48px;
+  padding: 13px 15px;
+  min-height: 50px;
   width: 100%;
   outline: none;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.04em;
   border-radius: 0;
   touch-action: manipulation;
   -webkit-appearance: none;
@@ -158,9 +171,9 @@ body::before {
 
 @media (min-width: 640px) {
   .pixel-input {
-    font-size: 14px;
-    padding: 10px 12px;
-    min-height: auto;
+    font-size: 16px;
+    padding: 12px 14px;
+    min-height: 46px;
   }
 }
 

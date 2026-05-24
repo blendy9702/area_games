@@ -79,7 +79,7 @@ function RouletteItem({
       style={{ width: itemWidth, height: itemHeight }}
     >
       <div className="text-base sm:text-xl">{GRADE_ICONS[grade]}</div>
-      <div className={`text-[6px] sm:text-[7px] ${info.textColor}`}>
+      <div className={`text-[11px] sm:text-xs ${info.textColor}`}>
         {info.label}
       </div>
     </div>

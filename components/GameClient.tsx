@@ -95,10 +95,10 @@ export default function GameClient({
   return (
     <div className="flex flex-col items-center gap-4 sm:gap-8 w-full">
       <div className="text-center w-full">
-        <h1 className="text-sm sm:text-lg text-indigo-300 pixel-glow mb-2">
+        <h1 className="text-base sm:text-xl text-indigo-300 pixel-glow mb-2">
           🎲 랜덤박스
         </h1>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-4 text-[10px] sm:text-xs text-gray-400">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-4 text-sm text-gray-400">
           <span>
             플레이어:{" "}
             <span className="text-indigo-300">{profile.username}</span>
@@ -113,7 +113,7 @@ export default function GameClient({
       <div className="flex items-center gap-3 pixel-card px-5 sm:px-8 py-3 sm:py-4 w-full max-w-xs sm:max-w-none sm:w-auto justify-center">
         <span className="text-2xl token-shine">🎫</span>
         <div>
-          <div className="text-xs text-gray-500 mb-1">토큰</div>
+          <div className="text-sm text-gray-500 mb-1">토큰</div>
           <div className="text-xl sm:text-2xl text-yellow-300">
             {formatTokens(profile.tokens, isAdmin)}
           </div>
@@ -136,7 +136,7 @@ export default function GameClient({
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="text-red-400 text-xs border border-red-800 bg-red-950 p-3 text-center w-full"
+                  className="text-red-400 text-sm border border-red-800 bg-red-950 p-3 text-center w-full"
                 >
                   ⚠ {error}
                 </motion.div>
@@ -145,7 +145,7 @@ export default function GameClient({
               <motion.button
                 onClick={openBox}
                 disabled={isOpening || !hasTokens(profile.tokens, isAdmin)}
-                className={`pixel-btn w-full sm:w-auto text-xs sm:text-sm px-6 sm:px-8 py-4 ${
+                className={`pixel-btn w-full sm:w-auto text-sm sm:text-base px-6 sm:px-8 py-4 ${
                   !hasTokens(profile.tokens, isAdmin)
                     ? "opacity-40 cursor-not-allowed border-gray-700 text-gray-500 bg-gray-900"
                     : "pixel-btn-primary"
@@ -196,7 +196,7 @@ export default function GameClient({
               )}
               <button
                 onClick={resetGame}
-                className="pixel-btn pixel-btn-primary w-full sm:w-auto text-xs sm:text-sm px-6 py-3 relative z-50"
+                className="pixel-btn pixel-btn-primary w-full sm:w-auto text-sm sm:text-base px-6 py-3 relative z-50"
               >
                 ▶ 다시 열기
               </button>
@@ -207,10 +207,10 @@ export default function GameClient({
 
       {isAdmin && !isOpening && !showResult && (
         <div className="w-full max-w-2xl pixel-card border-2 border-dashed border-yellow-700/80">
-          <div className="text-[9px] text-yellow-500 mb-1 text-center">
+          <div className="text-sm text-yellow-500 mb-1 text-center">
             ── 어드민 테스트 ──
           </div>
-          <div className="text-[8px] text-gray-600 text-center mb-3">
+          <div className="text-xs text-gray-600 text-center mb-3">
             등급별 이펙트 실험 (토큰 소모 없음)
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -220,7 +220,7 @@ export default function GameClient({
                 <button
                   key={grade}
                   onClick={() => testOpen(grade)}
-                  className={`pixel-btn text-[8px] px-2 py-2 border-2 ${info.borderColor} ${info.bgColor} hover:brightness-125`}
+                  className={`pixel-btn text-xs px-2 py-2 border-2 ${info.borderColor} ${info.bgColor} hover:brightness-125`}
                 >
                   {info.label}
                 </button>
@@ -231,7 +231,7 @@ export default function GameClient({
       )}
 
       <div className="w-full max-w-2xl">
-        <div className="text-xs text-gray-500 text-center mb-3">
+        <div className="text-sm text-gray-500 text-center mb-3">
           ── 등급표 ──
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -241,7 +241,7 @@ export default function GameClient({
                 key={grade}
                 className={`pixel-card p-3 border-2 ${info.borderColor}`}
               >
-                <div className={`text-[9px] font-bold mb-1 ${info.textColor}`}>
+                <div className={`text-sm font-bold mb-1 ${info.textColor}`}>
                   {grade === "mythic" ? (
                     <span className="rainbow-text">{info.label}</span>
                   ) : grade === "secret" ? (
@@ -252,7 +252,7 @@ export default function GameClient({
                     info.label
                   )}
                 </div>
-                <div className="text-[8px] text-gray-400">
+                <div className="text-xs text-gray-400">
                   {info.points}pt · {info.probability}%
                   {getGradeTier(grade) >= 1 && (
                     <span className="text-purple-400"> · 연출</span>
@@ -323,7 +323,7 @@ function ResultCard({ grade, points }: { grade: Grade; points: number }) {
             : "⬜"}
         </motion.div>
 
-        <div className={`text-sm mb-2 font-bold ${info.textColor}`}>
+        <div className={`text-base mb-2 font-bold ${info.textColor}`}>
           {grade === "mythic" ? (
             <span className="rainbow-text pixel-glow">{info.label}</span>
           ) : grade === "secret" ? (
@@ -344,7 +344,7 @@ function ResultCard({ grade, points }: { grade: Grade; points: number }) {
           +{points} 포인트
         </motion.div>
 
-        <div className="text-[9px] text-gray-500">{info.description}</div>
+        <div className="text-sm text-gray-500">{info.description}</div>
       </div>
     </motion.div>
   );
