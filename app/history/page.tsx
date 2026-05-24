@@ -4,6 +4,8 @@ import NavBar from "@/components/NavBar";
 import { GRADE_INFO, type Grade, type GameProfile, type BoxHistory } from "@/lib/types";
 import { formatTokens } from "@/lib/tokens";
 
+const HISTORY_LIMIT = 1000;
+
 const GRADE_ICONS: Record<Grade, string> = {
   common: "⬜",
   rare: "🔵",
@@ -32,7 +34,7 @@ export default async function HistoryPage() {
     .select("*")
     .eq("user_id", user.id)
     .order("created_at", { ascending: false })
-    .limit(50);
+    .limit(HISTORY_LIMIT);
 
   const isAdmin =
     (user.app_metadata?.is_admin as boolean | undefined) === true;
@@ -65,7 +67,7 @@ export default async function HistoryPage() {
             <div className="pixel-card text-center">
               <div className="text-sm text-gray-500 mb-1">총 오픈</div>
               <div className="text-xl text-green-300">
-                {history?.length || 0}
+                {(profile as GameProfile)?.total_boxes_opened ?? history?.length ?? 0}
               </div>
             </div>
             <div className="pixel-card text-center">
@@ -123,7 +125,7 @@ export default async function HistoryPage() {
 
           {/* 히스토리 목록 */}
           <div className="pixel-card">
-            <div className="text-sm text-gray-500 mb-3">── 최근 50개 ──</div>
+            <div className="text-sm text-gray-500 mb-3">── 최근 {HISTORY_LIMIT}개 ──</div>
             {!history || history.length === 0 ? (
               <div className="text-center text-gray-600 text-sm py-8">
                 아직 박스를 열지 않았습니다.
