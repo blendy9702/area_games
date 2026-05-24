@@ -50,10 +50,10 @@ export const GRADE_INFO: Record<Grade, GradeInfo> = {
   },
   legendary: {
     label: "전설",
-    color: "#f59e0b",
+    color: "#fbbf24",
     bgColor: "bg-yellow-600",
-    borderColor: "border-yellow-400",
-    textColor: "text-yellow-300",
+    borderColor: "border-yellow-300",
+    textColor: "text-yellow-200",
     points: 15,
     probability: 5,
     description: "전설의 아이템",
