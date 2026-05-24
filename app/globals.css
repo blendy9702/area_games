@@ -313,3 +313,119 @@ body::before {
 .token-shine {
   animation: token-shine 1.5s ease-in-out infinite;
 }
+
+/* Sonner — 픽셀 도트 토스트 */
+[data-sonner-toaster] {
+  --width: min(22rem, calc(100vw - 2rem));
+  font-family: var(--font-pixel);
+  z-index: 10050 !important;
+}
+
+[data-sonner-toast][data-styled="false"] {
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.pixel-toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: var(--width);
+  padding: 14px 16px;
+  background-color: var(--pixel-surface);
+  border: 3px solid var(--pixel-border);
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.55);
+  color: #e2e8f0;
+  border-radius: 0;
+  font-family: var(--font-pixel);
+  letter-spacing: 0.04em;
+  line-height: 1.55;
+}
+
+.pixel-toast-error {
+  background-color: #1a0a0f;
+  border-color: #991b1b;
+  box-shadow: 5px 5px 0 #450a0a;
+  color: #fca5a5;
+}
+
+.pixel-toast-success {
+  background-color: #0a1a0f;
+  border-color: #166534;
+  box-shadow: 5px 5px 0 #14532d;
+  color: #86efac;
+}
+
+.pixel-toast-warning {
+  background-color: #1a1508;
+  border-color: #a16207;
+  box-shadow: 5px 5px 0 #713f12;
+  color: #fde68a;
+}
+
+.pixel-toast-title {
+  font-size: 14px;
+  font-weight: normal;
+  flex: 1;
+}
+
+.pixel-toast-description {
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+.pixel-toast [data-icon] {
+  flex-shrink: 0;
+  width: auto;
+  height: auto;
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.pixel-toast-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0a0a0f;
+  border: 2px solid #4b5563;
+  color: #9ca3af;
+  border-radius: 0;
+  cursor: pointer;
+  font-family: var(--font-pixel);
+  font-size: 12px;
+  transition: transform 0.1s, color 0.1s;
+}
+
+.pixel-toast-close:hover {
+  color: #e2e8f0;
+  border-color: #6366f1;
+}
+
+.pixel-toast-close:active {
+  transform: translate(1px, 1px);
+}
+
+@keyframes pixel-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+[data-sonner-toast] {
+  animation: pixel-toast-in 0.2s ease-out;
+}
+

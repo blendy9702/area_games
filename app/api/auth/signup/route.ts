@@ -7,6 +7,7 @@ import {
   isValidPinCode,
   pinCodeValidationError,
   usernameToAuthEmail,
+  identityDuplicateError,
 } from "@/lib/auth/username";
 
 export async function POST(request: Request) {
@@ -14,9 +15,9 @@ export async function POST(request: Request) {
     const body = await request.json();
     const username = typeof body.username === "string" ? body.username : "";
     const password = typeof body.password === "string" ? body.password : "";
-    const normalizedName = normalizeUsername(username);
+    const normalizedIdentity = normalizeUsername(username);
 
-    if (!isValidUsername(normalizedName)) {
+    if (!isValidUsername(normalizedIdentity)) {
       return NextResponse.json(
         { error: usernameValidationError() },
         { status: 400 }
@@ -31,13 +32,13 @@ export async function POST(request: Request) {
     }
 
     const admin = createAdminClient();
-    const email = usernameToAuthEmail(normalizedName);
+    const email = usernameToAuthEmail(normalizedIdentity);
 
     const { error } = await admin.auth.admin.createUser({
       email,
       password,
       email_confirm: true,
-      user_metadata: { username: normalizedName },
+      user_metadata: { username: normalizedIdentity },
     });
 
     if (error) {
@@ -48,7 +49,7 @@ export async function POST(request: Request) {
         msg.includes("duplicate")
       ) {
         return NextResponse.json(
-          { error: "\uC774\uBBF8 \uC0AC\uC6A9 \uC911\uC778 \uC774\uB984\uC785\uB2C8\uB2E4." },
+          { error: identityDuplicateError() },
           { status: 409 }
         );
       }
@@ -59,8 +60,8 @@ export async function POST(request: Request) {
   } catch (err) {
     const message =
       err instanceof Error && err.message.includes("not configured")
-        ? "\uC11C\uBC84 \uC124\uC815\uC774 \uC644\uB8CC\uB418\uC9C0 \uC54A\uC558\uC2B5\uB2C8\uB2E4. SUPABASE_SERVICE_ROLE_KEY\uB97C \uD655\uC778\uD574\uC8FC\uC138\uC694."
-        : "\uD68C\uC6D0\uAC00\uC785 \uC911 \uC624\uB958\uAC00 \uBC1C\uC0DD\uD588\uC2B5\uB2C8\uB2E4.";
+        ? "서버 설정이 완료되지 않았습니다. SUPABASE_SERVICE_ROLE_KEY를 확인해주세요."
+        : "회원가입 중 오류가 발생했습니다.";
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

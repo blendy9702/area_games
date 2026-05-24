@@ -5,36 +5,40 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import PixelBackground from "@/components/PixelBackground";
 import {
+  IDENTITY_FIELD_LABEL,
+  PIN_FIELD_LABEL,
   normalizeUsername,
   isValidUsername,
   usernameValidationError,
+  identityPlaceholder,
+  identityHint,
   isValidPinCode,
   pinCodeValidationError,
+  pinCodeHint,
 } from "@/lib/auth/username";
+import { showValidationToast } from "@/lib/pixel-toast";
 
 export default function SignupPage() {
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [pinCode, setPinCode] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
 
   async function handleSignup(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    setError("");
 
-    const normalizedName = normalizeUsername(username);
+    const normalizedIdentity = normalizeUsername(username);
 
-    if (!isValidUsername(normalizedName)) {
-      setError(usernameValidationError());
+    if (!isValidUsername(normalizedIdentity)) {
+      showValidationToast(usernameValidationError());
       setLoading(false);
       return;
     }
 
     if (!isValidPinCode(pinCode)) {
-      setError(pinCodeValidationError());
+      showValidationToast(pinCodeValidationError());
       setLoading(false);
       return;
     }
@@ -42,13 +46,13 @@ export default function SignupPage() {
     const res = await fetch("/api/auth/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username: normalizedName, password: pinCode }),
+      body: JSON.stringify({ username: normalizedIdentity, password: pinCode }),
     });
 
     const data = await res.json();
 
     if (!res.ok) {
-      setError(data.error || "\uD68C\uC6D0\uAC00\uC785\uC5D0 \uC2E4\uD328\uD588\uC2B5\uB2C8\uB2E4.");
+      showValidationToast(data.error || "\uD68C\uC6D0\uAC00\uC785\uC5D0 \uC2E4\uD328\uD588\uC2B5\uB2C8\uB2E4.");
       setLoading(false);
       return;
     }
@@ -95,28 +99,26 @@ export default function SignupPage() {
           <form onSubmit={handleSignup} className="space-y-4">
             <div>
               <label className="block text-sm text-gray-400 mb-2">
-                {"\uC774\uB984"}
+                {IDENTITY_FIELD_LABEL}
               </label>
               <input
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 className="pixel-input"
-                placeholder={"\uD55C\uAE00 \uB610\uB294 \uC601\uBB38 (2~12\uC790)"}
+                placeholder={identityPlaceholder()}
                 maxLength={12}
                 autoComplete="username"
                 autoCorrect="off"
                 spellCheck={false}
                 required
               />
-              <div className="text-xs text-gray-600 mt-1">
-                {"\uD55C\uAE00, \uC601\uBB38, \uC22B\uC790, _ \uC0AC\uC6A9 \uAC00\uB2A5"}
-              </div>
+              <div className="text-xs text-gray-600 mt-1">{identityHint()}</div>
             </div>
 
             <div>
               <label className="block text-sm text-gray-400 mb-2">
-                {"\uACE0\uC720\uBC88\uD638 \uC55E\uC790\uB9AC"}
+                {PIN_FIELD_LABEL}
               </label>
               <input
                 type="password"
@@ -133,17 +135,8 @@ export default function SignupPage() {
                 autoComplete="new-password"
                 required
               />
-              <div className="text-xs text-gray-600 mt-1">
-                {"8\uC790\uB9AC \uC22B\uC790\uB9CC \uC785\uB825 \uAC00\uB2A5"}
-              </div>
+              <div className="text-xs text-gray-600 mt-1">{pinCodeHint()}</div>
             </div>
-
-            {error && (
-              <div className="text-red-400 text-sm border border-red-800 bg-red-950 p-3">
-                {"\u26A0 "}
-                {error}
-              </div>
-            )}
 
             <button
               type="submit"

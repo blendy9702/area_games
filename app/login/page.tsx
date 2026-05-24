@@ -5,10 +5,16 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import PixelBackground from "@/components/PixelBackground";
 import {
+  IDENTITY_FIELD_LABEL,
+  PIN_FIELD_LABEL,
   normalizeUsername,
+  identityPlaceholder,
+  identityRequiredError,
+  identityAuthFailedError,
   isValidPinCode,
   pinCodeValidationError,
 } from "@/lib/auth/username";
+import { showValidationToast } from "@/lib/pixel-toast";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -16,23 +22,21 @@ export default function LoginPage() {
   const [pinCode, setPinCode] = useState("");
   const [rememberMe, setRememberMe] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    setError("");
 
-    const normalizedName = normalizeUsername(username);
+    const normalizedIdentity = normalizeUsername(username);
 
-    if (!normalizedName) {
-      setError("\uC774\uB984\uACFC \uACE0\uC720\uBC88\uD638 \uC55E\uC790\uB9AC\uB97C \uC785\uB825\uD574\uC8FC\uC138\uC694.");
+    if (!normalizedIdentity || !pinCode) {
+      showValidationToast(identityRequiredError());
       setLoading(false);
       return;
     }
 
     if (!isValidPinCode(pinCode)) {
-      setError(pinCodeValidationError());
+      showValidationToast(pinCodeValidationError());
       setLoading(false);
       return;
     }
@@ -41,7 +45,7 @@ export default function LoginPage() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        username: normalizedName,
+        username: normalizedIdentity,
         password: pinCode,
         rememberMe,
       }),
@@ -50,10 +54,7 @@ export default function LoginPage() {
     const data = await res.json();
 
     if (!res.ok) {
-      setError(
-        data.error ||
-          "\uC774\uB984 \uB610\uB294 \uACE0\uC720\uBC88\uD638 \uC55E\uC790\uB9AC\uAC00 \uC62C\uBC14\uB974\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4."
-      );
+      showValidationToast(data.error || identityAuthFailedError());
       setLoading(false);
     } else {
       router.push("/game");
@@ -83,14 +84,14 @@ export default function LoginPage() {
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
               <label className="block text-sm text-gray-400 mb-2">
-                {"\uC774\uB984"}
+                {IDENTITY_FIELD_LABEL}
               </label>
               <input
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 className="pixel-input"
-                placeholder={"\uC774\uB984 \uC785\uB825"}
+                placeholder={identityPlaceholder()}
                 autoComplete="username"
                 autoCorrect="off"
                 spellCheck={false}
@@ -100,7 +101,7 @@ export default function LoginPage() {
 
             <div>
               <label className="block text-sm text-gray-400 mb-2">
-                {"\uACE0\uC720\uBC88\uD638 \uC55E\uC790\uB9AC"}
+                {PIN_FIELD_LABEL}
               </label>
               <input
                 type="password"
@@ -130,13 +131,6 @@ export default function LoginPage() {
                 {"\uB85C\uADF8\uC778 \uC0C1\uD0DC \uC720\uC9C0"}
               </span>
             </label>
-
-            {error && (
-              <div className="text-red-400 text-sm border border-red-800 bg-red-950 p-3">
-                {"\u26A0 "}
-                {error}
-              </div>
-            )}
 
             <button
               type="submit"

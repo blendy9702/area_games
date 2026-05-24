@@ -10,6 +10,8 @@ import {
   isValidPinCode,
   pinCodeValidationError,
   usernameToAuthEmail,
+  identityRequiredError,
+  identityAuthFailedError,
 } from "@/lib/auth/username";
 
 type CookieToSet = {
@@ -24,11 +26,11 @@ export async function POST(request: Request) {
     const username = typeof body.username === "string" ? body.username : "";
     const password = typeof body.password === "string" ? body.password : "";
     const rememberMe = body.rememberMe !== false;
-    const normalizedName = normalizeUsername(username);
+    const normalizedIdentity = normalizeUsername(username);
 
-    if (!normalizedName || !password) {
+    if (!normalizedIdentity || !password) {
       return NextResponse.json(
-        { error: "\uC774\uB984\uACFC \uACE0\uC720\uBC88\uD638 \uC55E\uC790\uB9AC\uB97C \uC785\uB825\uD574\uC8FC\uC138\uC694." },
+        { error: identityRequiredError() },
         { status: 400 }
       );
     }
@@ -40,7 +42,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const email = usernameToAuthEmail(normalizedName);
+    const email = usernameToAuthEmail(normalizedIdentity);
     const cookieStore = await cookies();
     const authCookies: CookieToSet[] = [];
 
@@ -75,7 +77,7 @@ export async function POST(request: Request) {
 
     if (error) {
       return NextResponse.json(
-        { error: "\uC774\uB984 \uB610\uB294 \uACE0\uC720\uBC88\uD638 \uC55E\uC790\uB9AC\uAC00 \uC62C\uBC14\uB974\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4." },
+        { error: identityAuthFailedError() },
         { status: 401 }
       );
     }
@@ -95,7 +97,7 @@ export async function POST(request: Request) {
     return response;
   } catch {
     return NextResponse.json(
-      { error: "\uB85C\uADF8\uC778 \uC911 \uC624\uB958\uAC00 \uBC1C\uC0DD\uD588\uC2B5\uB2C8\uB2E4." },
+      { error: "로그인 중 오류가 발생했습니다." },
       { status: 500 }
     );
   }
