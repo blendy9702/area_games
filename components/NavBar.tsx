@@ -36,9 +36,6 @@ export default function NavBar({ profile, isAdmin }: NavBarProps) {
     <nav className="border-b-4 border-indigo-900 bg-[#0d0d1a] safe-area-x pt-[max(0.5rem,env(safe-area-inset-top))] pb-2 sm:pb-3">
       <div className="max-w-5xl mx-auto flex items-center justify-between gap-2">
         <div className="flex items-center gap-1 min-w-0">
-          <span className="text-indigo-400 text-sm sm:text-base pixel-glow shrink-0">
-            {"\uD83C\uDFB2"}
-          </span>
           <div className="flex gap-1">
             {navItems.map((item) => (
               <Link

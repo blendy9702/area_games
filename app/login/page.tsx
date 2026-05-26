@@ -137,7 +137,7 @@ export default function LoginPage() {
               disabled={loading}
               className="pixel-btn pixel-btn-primary w-full mt-2"
             >
-              {loading ? "\uC7A0\uC2DC\uB9CC..." : "\u25B6 \uB85C\uADF8\uC778"}
+              {loading ? "로그인 중..." : "▶ 로그인"}
             </button>
           </form>
 

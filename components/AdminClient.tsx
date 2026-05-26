@@ -26,9 +26,11 @@ export default function AdminClient({
   initialUsers,
 }: AdminClientProps) {
   const [users, setUsers] = useState<GameProfile[]>(initialUsers);
-  const [tokenAmounts, setTokenAmounts] = useState<Record<string, number>>({});
-  const [pointValues, setPointValues] = useState<Record<string, number>>(() =>
-    Object.fromEntries(initialUsers.map((user) => [user.id, user.total_points ?? 0]))
+  const [tokenAmounts, setTokenAmounts] = useState<Record<string, string>>({});
+  const [pointValues, setPointValues] = useState<Record<string, string>>(() =>
+    Object.fromEntries(
+      initialUsers.map((user) => [user.id, String(user.total_points ?? 0)])
+    )
   );
   const [loadingUser, setLoadingUser] = useState<string | null>(null);
   const [savingPointsUser, setSavingPointsUser] = useState<string | null>(null);
@@ -40,8 +42,12 @@ export default function AdminClient({
   const [deleteTarget, setDeleteTarget] = useState<GameProfile | null>(null);
 
   async function giveTokens(userId: string) {
-    const amount = tokenAmounts[userId] || 1;
-    if (amount < 1) return;
+    const raw = tokenAmounts[userId] ?? "5";
+    const amount = parseInt(raw, 10);
+    if (!Number.isFinite(amount) || amount < 1) {
+      setErrorMsg("토큰은 1 이상이어야 합니다.");
+      return;
+    }
 
     setLoadingUser(userId);
     setErrorMsg(null);
@@ -67,8 +73,14 @@ export default function AdminClient({
   }
 
   async function savePoints(userId: string) {
-    const points = pointValues[userId] ?? 0;
-    if (points < 0) {
+    const raw = pointValues[userId];
+    if (raw === undefined || raw === "") {
+      setErrorMsg("포인트를 입력해주세요.");
+      return;
+    }
+
+    const points = parseInt(raw, 10);
+    if (!Number.isFinite(points) || points < 0) {
       setErrorMsg("포인트는 0 이상이어야 합니다.");
       return;
     }
@@ -131,7 +143,9 @@ export default function AdminClient({
       const nextUsers = data as GameProfile[];
       setUsers(nextUsers);
       setPointValues(
-        Object.fromEntries(nextUsers.map((user) => [user.id, user.total_points ?? 0]))
+        Object.fromEntries(
+          nextUsers.map((user) => [user.id, String(user.total_points ?? 0)])
+        )
       );
     }
     setRefreshing(false);
@@ -235,14 +249,14 @@ export default function AdminClient({
                       <div className="flex items-center gap-2 shrink-0">
                         <span className="text-xs text-gray-500 w-10 shrink-0">토큰</span>
                         <input
-                          type="number"
-                          min={1}
-                          max={100}
-                          value={tokenAmounts[u.id] ?? 5}
+                          type="text"
+                          inputMode="numeric"
+                          pattern="[0-9]*"
+                          value={tokenAmounts[u.id] ?? "5"}
                           onChange={(e) =>
                             setTokenAmounts((prev) => ({
                               ...prev,
-                              [u.id]: parseInt(e.target.value) || 1,
+                              [u.id]: e.target.value.replace(/\D/g, ""),
                             }))
                           }
                           className="pixel-input w-20! shrink-0 text-center"
@@ -267,13 +281,14 @@ export default function AdminClient({
                       <div className="flex items-center gap-2 shrink-0">
                         <span className="text-xs text-gray-500 w-12 shrink-0">포인트</span>
                         <input
-                          type="number"
-                          min={0}
-                          value={pointValues[u.id] ?? u.total_points ?? 0}
+                          type="text"
+                          inputMode="numeric"
+                          pattern="[0-9]*"
+                          value={pointValues[u.id] ?? String(u.total_points ?? 0)}
                           onChange={(e) =>
                             setPointValues((prev) => ({
                               ...prev,
-                              [u.id]: Math.max(0, parseInt(e.target.value) || 0),
+                              [u.id]: e.target.value.replace(/\D/g, ""),
                             }))
                           }
                           className="pixel-input w-24! shrink-0 text-center"
@@ -326,7 +341,7 @@ export default function AdminClient({
                       exit={{ opacity: 0, height: 0 }}
                       className="mt-2 text-sm text-green-400 text-center"
                     >
-                      ✓ {tokenAmounts[u.id] ?? 5}개 토큰 지급 완료!
+                      ✓ {tokenAmounts[u.id] ?? "5"}개 토큰 지급 완료!
                     </motion.div>
                   )}
                   {successPointsUser === u.id && (
@@ -336,7 +351,7 @@ export default function AdminClient({
                       exit={{ opacity: 0, height: 0 }}
                       className="mt-2 text-sm text-green-400 text-center"
                     >
-                      ✓ 포인트 {pointValues[u.id] ?? u.total_points ?? 0}pt로 저장됨
+                      ✓ 포인트 {pointValues[u.id] ?? String(u.total_points ?? 0)}pt로 저장됨
                     </motion.div>
                   )}
                 </AnimatePresence>
