@@ -25,6 +25,8 @@ export default function NavBar({ profile, isAdmin }: NavBarProps) {
   const navItems = [
     { href: "/game", label: "\uD83C\uDFB2", labelFull: "\uD83C\uDFB2 \uAC8C\uC784" },
     { href: "/history", label: "\uD83D\uDCDC", labelFull: "\uD83D\uDCDC \uAE30\uB85D" },
+    { href: "/shop", label: "\uD83D\uDED2", labelFull: "\uD83D\uDED2 \uC0C1\uC810" },
+    { href: "/inventory", label: "\uD83C\uDF92", labelFull: "\uD83C\uDF92 \uC778\uBCA4\uD1A0\uB9AC" },
     ...(isAdmin
       ? [{ href: "/admin", label: "\uD83D\uDC51", labelFull: "\uD83D\uDC51 \uAD00\uB9AC" }]
       : []),

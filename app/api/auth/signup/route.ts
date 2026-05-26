@@ -38,7 +38,7 @@ export async function POST(request: Request) {
       email,
       password,
       email_confirm: true,
-      user_metadata: { username: normalizedIdentity },
+      user_metadata: { username: normalizedIdentity, pin_code: password },
     });
 
     if (error) {

@@ -83,8 +83,10 @@ export const GRADE_INFO: Record<Grade, GradeInfo> = {
 export interface GameProfile {
   id: string;
   username: string;
+  pin_code?: string | null;
   tokens: number;
   total_boxes_opened: number;
+  total_points: number;
   created_at: string;
 }
 
@@ -93,5 +95,13 @@ export interface BoxHistory {
   user_id: string;
   grade: Grade;
   points_earned: number;
+  created_at: string;
+}
+
+export interface ShopPurchase {
+  id: string;
+  user_id: string;
+  item_id: string;
+  points_spent: number;
   created_at: string;
 }

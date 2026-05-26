@@ -13,6 +13,12 @@ export function getGradeTier(grade: Grade): number {
   return GRADE_TIER[grade];
 }
 
+export function pickBestGrade(grades: Grade[]): Grade {
+  return grades.reduce((best, grade) =>
+    getGradeTier(grade) > getGradeTier(best) ? grade : best
+  );
+}
+
 export function hasRevealEffect(grade: Grade): boolean {
   return getGradeTier(grade) >= 1;
 }
