@@ -155,18 +155,22 @@ export function AlertDialogCancel({
   children,
   className = "",
   onClick,
+  disabled = false,
 }: {
   children: React.ReactNode;
   className?: string;
   onClick?: () => void;
+  disabled?: boolean;
 }) {
   const { setOpen } = useAlertDialog();
 
   return (
     <button
       type="button"
-      className={`pixel-btn w-full sm:w-auto px-4 py-2 text-sm border-2 border-gray-600 bg-gray-900 text-gray-300 hover:border-gray-400 ${className}`}
+      disabled={disabled}
+      className={`pixel-btn w-full sm:w-auto px-4 py-2 text-sm border-2 border-gray-600 bg-gray-900 text-gray-300 hover:border-gray-400 disabled:opacity-50 disabled:cursor-not-allowed ${className}`}
       onClick={() => {
+        if (disabled) return;
         onClick?.();
         setOpen(false);
       }}
